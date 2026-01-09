@@ -3,11 +3,19 @@ from database import engine, Base
 import models
 from routers.jobs import router as jobs_router
 from routers.notifications import router as notifications_router
+from fastapi.middleware.cors import CORSMiddleware
 
 from routers.auth import router as auth_router
 from routers.core import router as core_router
 
 app = FastAPI(title="Campus Hiring System")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.on_event("startup")
 def startup():
